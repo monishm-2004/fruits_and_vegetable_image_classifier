@@ -1,0 +1,9 @@
+tensorflow==2.16.2
+numpy
+pandas
+matplotlib
+Pillow
+PyYAML
+dvc
+dvc-s3
+boto3
