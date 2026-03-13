@@ -1,6 +1,6 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras import layers
-from config import load_params
+from src.config import load_params
 
 def build_model(num_classes):
     """Build CNN model"""

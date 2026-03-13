@@ -1,6 +1,8 @@
+import os
+import json
 import argparse
 import tensorflow as tf
-from data_loader import load_datasets
+from src.data_loader import load_datasets
 
 
 def evaluate(model_path: str, split: str = "test"):
@@ -17,6 +19,12 @@ def evaluate(model_path: str, split: str = "test"):
     loss, accuracy = model.evaluate(dataset, verbose=1)
     print(f"{split.upper()} Loss: {loss:.4f}")
     print(f"{split.upper()} Accuracy: {accuracy:.4f}")
+
+    # Save metrics
+    os.makedirs('logs', exist_ok=True)
+    with open('logs/test_metrics.json', 'w') as f:
+        json.dump({'test_loss': float(loss), 'test_accuracy': float(accuracy)}, f, indent=4)
+    print("Test metrics saved to logs/test_metrics.json")
 
     return loss, accuracy
 

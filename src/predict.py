@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 import argparse
-from config import load_params
-from data_loader import load_datasets
+from src.config import load_params
+from src.data_loader import load_datasets
 
 def predict(image_path):
     params = load_params()

@@ -1,5 +1,5 @@
 import tensorflow as tf
-from config import load_params
+from src.config import load_params
 
 def load_datasets():
     """Load train, val, test datasets"""
@@ -11,7 +11,6 @@ def load_datasets():
         shuffle=True,
         image_size=(params['data']['img_height'], params['data']['img_width']),
         batch_size=params['data']['batch_size'],
-        validation_split=False
     )
     
     # Validation data
@@ -20,7 +19,6 @@ def load_datasets():
         shuffle=False,
         image_size=(params['data']['img_height'], params['data']['img_width']),
         batch_size=params['data']['batch_size'],
-        validation_split=False
     )
     
     # Test data
@@ -29,7 +27,6 @@ def load_datasets():
         shuffle=False,
         image_size=(params['data']['img_height'], params['data']['img_width']),
         batch_size=params['data']['batch_size'],
-        validation_split=False
     )
     
     class_names = data_train.class_names

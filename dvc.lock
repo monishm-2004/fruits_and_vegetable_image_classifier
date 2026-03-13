@@ -1,0 +1,93 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python -m src.train
+    deps:
+    - path: Fruits_Vegetables/train
+      hash: md5
+      md5: 08ef3878a37ab0a2776167123603013f.dir
+      size: 1680275661
+      nfiles: 3115
+    - path: Fruits_Vegetables/validation
+      hash: md5
+      md5: e8798509f726e8752d753b7002ebcfd6.dir
+      size: 240074438
+      nfiles: 351
+    - path: params.yaml
+      hash: md5
+      md5: 279d6b5f1a5c5de68eecbbd6b1881782
+      size: 327
+    - path: src/config.py
+      hash: md5
+      md5: b368246636a4b60ba14f643085b56b91
+      size: 180
+    - path: src/data_loader.py
+      hash: md5
+      md5: eccacf5bbf5e33735b751b2e0b1bd6dd
+      size: 1095
+    - path: src/model.py
+      hash: md5
+      md5: d6a1f6e6f9bafc19ece4ffb22b0e6415
+      size: 1093
+    - path: src/train.py
+      hash: md5
+      md5: bb3e2f884c207bd9cc89a98bb249f5c0
+      size: 1503
+    params:
+      params.yaml:
+        data.batch_size: 32
+        data.img_height: 180
+        data.img_width: 180
+        model.conv_filters:
+        - 16
+        - 32
+        - 64
+        model.conv_kernel: 3
+        model.dense_units: 128
+        model.dropout_rate: 0.2
+        train.epochs: 25
+        train.learning_rate: 0.001
+        train.optimizer: adam
+    outs:
+    - path: logs/metrics.json
+      hash: md5
+      md5: cc54183cb1a1c14f8f0fa86730c1ae73
+      size: 160
+    - path: models/image_classifier.keras
+      hash: md5
+      md5: c136ec0f74c6153c23580292630ca4be
+      size: 47969379
+  evaluate:
+    cmd: python -m src.evaluate --model-path models/image_classifier.keras 
+      --split test
+    deps:
+    - path: Fruits_Vegetables/test
+      hash: md5
+      md5: 500151aacdf424ef172b23a20609fd01.dir
+      size: 247114024
+      nfiles: 359
+    - path: models/image_classifier.keras
+      hash: md5
+      md5: c136ec0f74c6153c23580292630ca4be
+      size: 47969379
+    - path: params.yaml
+      hash: md5
+      md5: 279d6b5f1a5c5de68eecbbd6b1881782
+      size: 327
+    - path: src/config.py
+      hash: md5
+      md5: b368246636a4b60ba14f643085b56b91
+      size: 180
+    - path: src/data_loader.py
+      hash: md5
+      md5: eccacf5bbf5e33735b751b2e0b1bd6dd
+      size: 1095
+    - path: src/evaluate.py
+      hash: md5
+      md5: f3de5c7f760a736f42eb53523cbc24ed
+      size: 1391
+    outs:
+    - path: logs/test_metrics.json
+      hash: md5
+      md5: c31fce645ffafd74629ddf306a4fd721
+      size: 81

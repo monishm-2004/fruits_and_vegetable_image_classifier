@@ -1,0 +1,40 @@
+stages:
+  train:
+    cmd: python -m src.train
+    deps:
+      - src/train.py
+      - src/model.py
+      - src/data_loader.py
+      - src/config.py
+      - Fruits_Vegetables/train
+      - Fruits_Vegetables/validation
+      - params.yaml
+    params:
+      - data.batch_size
+      - data.img_height
+      - data.img_width
+      - model.conv_filters
+      - model.conv_kernel
+      - model.dropout_rate
+      - model.dense_units
+      - train.epochs
+      - train.optimizer
+      - train.learning_rate
+    outs:
+      - models/image_classifier.keras
+    metrics:
+      - logs/metrics.json:
+          cache: false
+
+  evaluate:
+    cmd: python -m src.evaluate --model-path models/image_classifier.keras --split test
+    deps:
+      - src/evaluate.py
+      - src/data_loader.py
+      - src/config.py
+      - models/image_classifier.keras
+      - Fruits_Vegetables/test
+      - params.yaml
+    metrics:
+      - logs/test_metrics.json:
+          cache: false  
